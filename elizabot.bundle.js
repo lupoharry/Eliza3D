@@ -100,7 +100,7 @@ ElizaBot.prototype._init = function() {
 			// check mem flag and store it as decomp's element 2
 			if (r[0].charAt(0)=='$') {
 				var ofs=1;
-				while (r[0].charAt[ofs]==' ') ofs++;
+				while (r[0].charAt(ofs)==' ') ofs++;
 				r[0]=r[0].substring(ofs);
 				r[2]=true;
 			}
