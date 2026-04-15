@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eliza3D</title>
+  <script src="./elizabot.bundle.js"></script>
+  <script>
+    var eliza = new ElizaBot();
+    var elizaLines = [];
+
+    var displayCols = 60;
+    var displayRows = 20;
+
+    function elizaReset() {
+      eliza.reset();
+      elizaLines.length = 0;
+      elizaStep();
+    }
+
+    function elizaStep() {
+      var f = document.forms.e_form;
+      var userinput = f.e_input.value;
+      if (eliza.quit) {
+        f.e_input.value = "";
+        if (confirm("This session is over.\nStart over?")) elizaReset();
+        f.e_input.focus();
+        return;
+      } else if (userinput !== "") {
+        var usr = "YOU:   " + userinput;
+        var rpl = "ELIZA: " + eliza.transform(userinput);
+        elizaLines.push(usr);
+        elizaLines.push(rpl);
+        var temp = [];
+        var l = 0;
+        for (var i = elizaLines.length - 1; i >= 0; i--) {
+          l += 1 + Math.floor(elizaLines[i].length / displayCols);
+          if (l >= displayRows) break;
+          temp.push(elizaLines[i]);
+        }
+        elizaLines = temp.reverse();
+        f.e_display.value = elizaLines.join("\n");
+      } else if (elizaLines.length === 0) {
+        var initial = "ELIZA: " + eliza.getInitial();
+        elizaLines.push(initial);
+        f.e_display.value = initial + "\n";
+      }
+      f.e_input.value = "";
+      f.e_input.focus();
+    }
+  </script>
+</head>
+<body onload="elizaReset()">
+  <main>
+    <h1>Eliza3D</h1>
+    <form name="e_form" onsubmit="elizaStep(); return false;">
+      <textarea name="e_display" cols="60" rows="20" readonly></textarea>
+      <div>
+        <input name="e_input" type="text" size="60" autocomplete="off" />
+        <button type="submit">Send</button>
+        <button type="button" onclick="elizaReset()">Reset</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>
