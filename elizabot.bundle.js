@@ -967,10 +967,10 @@ exports.elizaKeywords = [
 	["alike", 10, [
 		["*", [
 			"In what way ?",
-			"What resemblence do you see ?",
+			"What resemblance do you see ?",
 			"What does that similarity suggest to you ?",
 			"What other connections do you see ?",
-			"What do you suppose that resemblence means ?",
+			"What do you suppose that resemblance means ?",
 			"What is the connection, do you suppose ?",
 			"Could there really be some connection ?",
 			"How ?"
